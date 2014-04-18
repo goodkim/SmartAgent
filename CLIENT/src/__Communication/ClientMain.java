@@ -36,7 +36,7 @@ public class ClientMain {
 				//WriteBuffer
 				Writer.writeBuffer(socket);
 				
-				
+				fs
 			}*/
 			
 		/*	while(true){
