@@ -37,6 +37,9 @@ public class ClientMain {
 				Writer.writeBuffer(socket);
 				
 				
+=======
+				fs
+>>>>>>> refs/heads/Reconfig_Dusan
 			}*/
 			
 		/*	while(true){
