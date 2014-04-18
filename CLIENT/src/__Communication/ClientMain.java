@@ -38,7 +38,7 @@ public class ClientMain {
 				
 				
 =======
-				fsdasdasdadsada
+				fs
 >>>>>>> refs/heads/Reconfig_Dusan
 			}*/
 			
