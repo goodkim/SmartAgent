@@ -12,6 +12,7 @@ public class ClientMain {
 	public static Socket socket = null;
 	public static String tempReceivedAgentInfor =null;
 	
+	//to make pipeline between a Thread and another Thread
 	public static PipedOutputStream senderToRequesterOut;
 	public static PipedInputStream senderToRequesterIn;
 	public static PipedOutputStream senderToBrokerOut;
@@ -30,42 +31,6 @@ public class ClientMain {
 			
 			clientReceiverThread.start();
 			clientSenderThread.start();
-			/*while(true){
-				//readBuffer
-				Receiver.readBuffer(socket);
-				//WriteBuffer
-				Writer.writeBuffer(socket);
-				
-				
-				while(true){
-			
-				BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				String str=reader.readLine();
-
-				//System.out.println(str);
-				if(str== null){
-					System.out.println("\"System terminate\"");
-					break;
-				}
-				else{
-					System.out.println(str);
-				
-				}
-				
-			}
-			*/
-			
-			
-			//InputStream in = socket.getInputStream();
-			//OutputStream out = socket.getOutputStream();
-			//System.out.println("----getInputStream----- "+ socket.getInputStream() +" ---------");
-			//System.out.println("----getOutputStream----- "+ socket.getOutputStream() +" ---------");
-			//String str = "Hello, Server";
-			
-			//out.write(str.getBytes());
-			//while(true){
-				
-			//}
 			
 		}catch(Exception e){
 			e.printStackTrace();

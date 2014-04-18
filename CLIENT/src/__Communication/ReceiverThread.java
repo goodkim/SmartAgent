@@ -26,7 +26,6 @@ public class ReceiverThread extends Thread {
 	public static List<Integer> ignoreBrokerList = new ArrayList<Integer>();
 	public static int beaconCount=9;
 
-
 	//constructor
 	ReceiverThread(Socket socket){
 		this.socket = socket;
@@ -36,9 +35,6 @@ public class ReceiverThread extends Thread {
 	public void run(){
 		try {
 			BufferedReader reader = new BufferedReader ( new InputStreamReader(socket.getInputStream()));
-			//to make pipeline between this Thread and agent Thread
-
-
 
 			while (true){				
 				str = reader.readLine();
@@ -61,6 +57,7 @@ public class ReceiverThread extends Thread {
 				 */
 				//Ãß°¡
 				//register device in device list (preprocessor for simulation)
+				
 				if(str.equals("Client Status Changed!"))
 				{
 					System.out.println(str);
