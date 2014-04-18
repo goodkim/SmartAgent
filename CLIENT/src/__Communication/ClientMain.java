@@ -37,12 +37,7 @@ public class ClientMain {
 				Writer.writeBuffer(socket);
 				
 				
-=======
-				fs
->>>>>>> refs/heads/Reconfig_Dusan
-			}*/
-			
-		/*	while(true){
+				while(true){
 			
 				BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String str=reader.readLine();
