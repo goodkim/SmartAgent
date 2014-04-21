@@ -7,7 +7,7 @@ public class PrintMainMenu {
 	public static void printMainMenu()
 	{
 		System.out.println("Agnet menu : startR, startB, startP, startAll, runR, runB, runP, runAll, ignoreBeacon@INT (INT>0 ? add : printAllIgnoreList), notifyBeacon@INT, R@message, B@message, P@message ");
-		System.out.println("DB menu : init, vRole, vDPDB, fDPDB_INTofAGNETTYPE, fAll, fDPDB, fCDB, fBADB, fRPADB, makeR, makeB, makeP");
+		System.out.println("DB menu : initDB, viewRole, viewDPDB, fillAll, fillDPDB, fillBDB, fillRPDB, fillOwnRPDB, "); //updated 04.21.14
 		System.out.println("agent status: RequesterAgent: "+ ClientMain.runingRequester + ", BrokerAgent: " + ClientMain.runingBroker+", ProviderAgent: " + ClientMain.runingProvider + ", BeaconThread: " + ClientMain.runingSendBeacon);
 	}
 	public static void printRequesterAgentMenu()

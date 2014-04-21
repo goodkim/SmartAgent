@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 import __Communication.ClientMain;
 
-public class SQLiteInitialize {
+public class SQLiteInitialization {
 
 	public static void initializeSQLiteDB()
 	{
@@ -39,7 +39,7 @@ public class SQLiteInitialize {
 					" Location_Altitude REAL NOT NULL, " +
 					" Location_Latitude REAL NOT NULL, " +
 					" Location_Longitude REAL NOT NULL, " + //"YYYY-MM-DD HH:MM:SS.SSS"으로 날짜순, AgentType RBP 순으로 예를들어 111이면 모든 기능 on, 
-					" Beacon_Time REAL)";
+					" BeaconTime REAL)";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();

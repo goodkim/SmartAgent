@@ -233,12 +233,6 @@ public class SenderThread extends Thread{
 							else
 								System.out.println("This device doesn't runing ProviderAgent");
 						}
-
-						else if(str.split(",")[1].matches("fDPDB@.*"))
-							SQLiteExample.fillDevicePropertyDB1(str.split("@")[1]);
-						
-						else if(str.split(",")[1].matches("fCDB@.*"))
-							SQLiteExample.fillCDB(str.split("@")[1]);
 							
 						//go to SQLite menu
 						else

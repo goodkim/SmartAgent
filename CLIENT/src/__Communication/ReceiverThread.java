@@ -16,9 +16,6 @@ import _BeaconMethod.BeaconManager;
 import _Function.SAServiceManager;
 import _SQLite.SQLiteView;
 
-
-
-
 public class ReceiverThread extends Thread {
 	Socket socket;
 	String str;
