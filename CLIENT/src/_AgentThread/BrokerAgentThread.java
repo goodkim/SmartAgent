@@ -50,11 +50,11 @@ public class BrokerAgentThread extends Thread{
 				//manage broker service
 				else
 				{
-					System.out.println("Brovider agent Thread: " +str );
+					System.out.println("Broker agent Thread: " +str );
 
 					if(str.matches("menu"))
 						PrintMainMenu.printBrokerAgentrMenu();
-					
+
 					else if(str.matches(".*requestToSearch_1.*"))
 					{
 						arrayAll = SQLiteView.viewAllProviderAgentInRPDB();
@@ -63,12 +63,20 @@ public class BrokerAgentThread extends Thread{
 							FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "B", provider.split("@MACaddr=")[1].split("-")[0], "P", "broadcastToSearch_2",str.split("#")[1]+"@"+ str.split("#")[6], socket);
 						}
 					}
-					else if(str.matches("applyForBroker_45.*")) //0,B@  applyForBroker_45#1#P#accept/reject
+
+					else if(str.matches(".*applyForBroker_45.*")) //0,B@  applyForBroker_45#1#P#accept/reject
+					{
+						System.out.println("property of device who applies for me is : " + str.split("#")[6]);
+						System.out.println("do you accept "+ str.split("#")[1] + "'s " + str.split("#")[2] + "?  If you want, then type "+ ClientMain.myID_Num + ",B@ackApplication_54#"+str.split("#")[1]+"#"+str.split("#")[2]+"#accept or not then #denial");
+						ClientMain.tempReceivedAgentInfor=str;
+					}
+
+					else if(str.matches(".*ackApplication_54.*"))
 					{
 						if(ClientMain.tempReceivedAgentInfor.split("#")[5].matches("applyForBroker_45")&&ClientMain.tempReceivedAgentInfor.split("#")[1].matches(str.split("#")[1])&&ClientMain.tempReceivedAgentInfor.split("#")[2].matches(str.split("#")[2]))
 						{
 							FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "B", str.split("#")[1], str.split("#")[2] , "applyForBroker_45",str.split("#")[3]+"@"+SQLiteView.viewDevicePropertyDB(), socket);
-							//Register ClientMain.tempAgentInfor in RPDB SA#DEP#DEP_AGENT#DTN#DTN_AGENT#SERVICE_FIELD#ID=1@UpdateTime=2013-12-23 11:20:30@AgentType=101@UserName=dukki@OwnMACaddr=11-11-11-11-11-11@Status=stable@DeviceName=dukki's@Mobility=stop@BatteryResidual=-77@Location_Altitude=0.0@Location_Latitude=0.0@Location_Longitude=0.0@Beacon_Time=1
+							//Register ClientMain.tempAgentInfor in RPDB SA#DEP#DEP_AGENT#DTN#DTN_AGENT#SERVICE_FIELD#ID=1@UpdateTime=2013-12-23 11:20:30@AgentType=101@UserName=dukki@OwnMACaddr=11-11-11-11-11-11@Status=stable@DeviceName=dukki's@Mobility=stop@BatteryResidual=-77@Location_Altitude=0.0@Location_Latitude=0.0@Location_Longitude=0.0@BeaconTime=1
 							SQLiteInsert.insertRPDB(GetDate.getDate(), GetAgentType.stringToInt(ClientMain.tempReceivedAgentInfor.split("#")[2]), ClientMain.tempReceivedAgentInfor.split("OwnMACaddr=")[1].split("@")[0],ClientMain.tempReceivedAgentInfor.split("Status=")[1].split("@")[0], ClientMain.tempReceivedAgentInfor.split("Mobility=")[1].split("@")[0]
 									, Integer.parseInt(ClientMain.tempReceivedAgentInfor.split("BatteryResidual=")[1].split("@")[0]), 1, 1);
 
@@ -76,9 +84,9 @@ public class BrokerAgentThread extends Thread{
 						}
 						else
 							System.out.println("Check your command!! differ from last received message");
-					}					
+					}
 				}
-				
+
 
 				//manage beacon
 				if(str.matches("startBeacon"))  //startBeacon

@@ -8,8 +8,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import _Function.FunctionClass;
+import _SQLite.SQLiteInsert;
 import _SQLite.SQLiteView;
 import __Communication.ClientMain;
+import etc.GetDate;
 import etc.PrintMainMenu;
 
 public class RequesterAgentThread extends Thread{
@@ -46,6 +48,18 @@ public class RequesterAgentThread extends Thread{
 				else if(str.matches("applyForBroker_45.*"))
 				{
 					FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), SQLiteView.viewRoleString(), str.split("#")[1], "B", "applyForBroker_45", SQLiteView.viewDevicePropertyDB(), socket);
+				}
+				
+				else if(str.matches(".*ackApplication_54.*"))
+				{
+					if(str.split("#")[6].matches("accept.*")) //broker => provider so it's printed in provider side
+					{
+						System.out.println("application accepted !");
+						//register str in BDB. whenever it can change
+						SQLiteInsert.insertBDB(GetDate.getDate(), 1, str.split("OwnMACaddr=")[1].split("@")[0], "stable", 1, Integer.parseInt(str.split("BeaconTime=")[1].split("@")[0]));
+					}
+					else if(str.split("#")[6].matches("reject.*")) //broker => provider so it's printed in provider side
+						System.out.println("applyForBroker_45 is rejected by agent " +  str.split("#")[1]);
 				}
 				
 				else if(str.matches("requestToSearch_1.*")) //03.14.14 implement

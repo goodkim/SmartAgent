@@ -42,7 +42,7 @@ public class SQLiteInsert {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:"+ClientMain.myID_Num+".db");
 			c.setAutoCommit(false);
-			System.out.println("Opened insertBDB of "+ClientMain.myID_Num + "successfully");
+			System.out.println("Opened insertBDB of "+ClientMain.myID_Num + " successfully");
 			stmt = c.createStatement();
 
 			String sql = "INSERT INTO BrokerAgentDB (UpdateTime, Priority , BMACaddr , Mobility , Trust , BeaconTime) " +

@@ -35,12 +35,12 @@ public class SQLiteView {
 				float Location_Altitude = rs.getFloat("Location_Altitude");
 				float Location_Latitude = rs.getFloat("Location_Latitude");
 				float Location_Longitude = rs.getFloat("Location_Longitude");
-				int Beacon_Time = rs.getInt("Beacon_Time");
+				int BeaconTime = rs.getInt("BeaconTime");
 
 				str =  "ID=" + ID + "@UpdateTime=" + UpdateTime + "@AgentType=" + AgentType + "@UserName=" + UserName + "@OwnMACaddr=" + OwnMACaddr
 						+ "@Status=" + Status + "@DeviceName=" + DeviceName + "@Mobility=" + Mobility + "@BatteryResidual=" + BatteryResidual
 						+ "@Location_Altitude=" + Location_Altitude + "@Location_Latitude=" + Location_Latitude + "@Location_Longitude=" + Location_Longitude
-						+ "@Beacon_Time=" + Beacon_Time ;
+						+ "@BeaconTime=" + BeaconTime ;
 
 			}
 			rs.close();
@@ -73,9 +73,9 @@ public class SQLiteView {
 				String BMACaddr = rs.getString("BMACaddr");
 				String Mobility = rs.getString("Mobility");
 				int Trust = rs.getInt("Trust");
-				int Beacon_Time = rs.getInt("BeaconTime");
+				int BeaconTime = rs.getInt("BeaconTime");
 
-				str =  "ID=" + ID + "@UpdateTime=" + UpdateTime + "@Priority=" + Priority + "@BMACaddr=" + BMACaddr + "@Mobility=" + Mobility+ "@Trust=" + Trust+ "@Beacon_Time=" + Beacon_Time;
+				str =  "ID=" + ID + "@UpdateTime=" + UpdateTime + "@Priority=" + Priority + "@BMACaddr=" + BMACaddr + "@Mobility=" + Mobility+ "@Trust=" + Trust+ "@BeaconTime=" + BeaconTime;
 				arrayAll.add(str);
 			}
 			rs.close();
@@ -244,7 +244,7 @@ public class SQLiteView {
 
 	public static int viewBeaconTime(){
 		// TODO Auto-generated method stub
-		int Beacon_Time=0;
+		int BeaconTime=0;
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -252,9 +252,9 @@ public class SQLiteView {
 			c = DriverManager.getConnection("jdbc:sqlite:"+ClientMain.myID_Num+".db");
 			//System.out.println("viewRole() _Opened database successfully");
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT Beacon_Time FROM DevicePropertyDB;");
+			ResultSet rs = stmt.executeQuery("SELECT BeaconTime FROM DevicePropertyDB;");
 
-			Beacon_Time  = rs.getInt("Beacon_Time");
+			BeaconTime  = rs.getInt("BeaconTime");
 
 			rs.close();
 			stmt.close();
@@ -264,6 +264,6 @@ public class SQLiteView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return Beacon_Time;
+		return BeaconTime;
 	}
 }

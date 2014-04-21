@@ -18,6 +18,7 @@ public class SendBeaconThread extends Thread{
 				e1.printStackTrace();
 			}
 			// TODO Auto-generated method stub
+			System.out.println("Send Beacon!!");
 			String beaconMessage = "-1,BEACON DEVICE NUM:"+ClientMain.myID_Num ;
 			//System.out.println("I am sending beacon message to everyone");
 			writer.println(beaconMessage);

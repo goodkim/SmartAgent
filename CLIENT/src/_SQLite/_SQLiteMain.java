@@ -39,10 +39,10 @@ public class _SQLiteMain {
 		else if(str.matches("fillOwnRPDB"))
 			SQLiteInsert.insertOwnRPDB();
 		
-		else if(str.matches("fDPDB@.*"))
+		else if(str.matches("fillDPDB@.*"))
 			SQLiteExample.fillDPDBByAgentType(str.split("@")[1]);
 		
-		else if(str.matches("fCDB@.*"))
+		else if(str.matches("fillCDB@.*"))
 			SQLiteExample.fillCDB(str.split("@")[1]);
 
 		else

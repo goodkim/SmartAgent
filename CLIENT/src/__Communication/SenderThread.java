@@ -83,25 +83,23 @@ public class SenderThread extends Thread{
 				str = reader.readLine();
 				//exit
 				if(str.equals("exit"))break;
-				
+
 
 				//test
 				else if(str.equals("test"))
-						System.out.print(SQLiteView.viewDevicePropertyDB());
-				
-				
-				
+					System.out.print(SQLiteView.viewDevicePropertyDB());
+
+
+
 				else if(str.equals("who am i?"))
 					System.out.println("i am "+ ClientMain.myID_Num);
 
 				//act my own
 				else if(str.split(",")[0].equals(Integer.toString(ClientMain.myID_Num)))
 				{
-					//ManageXMLFile.selectXMLFile(str.split(",")[1]);
-					switch(str.split(",")[1]){
-
-					//requester
-					case "startR" :
+					//startR
+					if(str.split(",")[1].matches("strtR"))
+					{
 						if(SQLiteView.viewRoleInt()>99)
 						{
 							if(ClientMain.runingRequester)
@@ -111,14 +109,13 @@ public class SenderThread extends Thread{
 						}
 						else
 							System.out.println("This device doesn't run RequesterAgent");
-						break;
-
-					case "stopR" :
+					}
+					else if(str.split(",")[1].matches("stopR"))
 						ClientMain.runingRequester = false;
-						break;
 
-						//broker
-					case "startB" :
+					//startB
+					else if(str.split(",")[1].matches("startB"))
+					{
 						if(SQLiteView.viewRoleInt()%100>9)
 						{
 							if(ClientMain.runingBroker)
@@ -132,16 +129,17 @@ public class SenderThread extends Thread{
 						}						
 						else
 							System.out.println("This device doesn't run BrokerAgent");
-						break;
-
-					case "stopB" :
+					}
+					else if(str.split(",")[1].matches("startB"))
+					{
 						ClientMain.runingBroker = false;
 						writerPrintBroker.println("stopBeacon"); //beacon stop
 						writerPrintBroker.flush();
-						break;
+					}
 
-						//provider
-					case "startP" :
+					//startP
+					else if(str.split(",")[1].matches("startP"))
+					{	
 						if(SQLiteView.viewRoleInt()%10>0)
 						{
 							if(ClientMain.runingProvider)
@@ -151,14 +149,13 @@ public class SenderThread extends Thread{
 						}
 						else
 							System.out.println("This device doesn't run ProviderAgent");
-						break;
-
-					case "stopP" :
+					}
+					else if(str.split(",")[1].matches("stopP"))
 						ClientMain.runingProvider = false;
-						break;
 
-						//all of agent
-					case "startAll" :
+					//startAll
+					else if(str.split(",")[1].matches("startAll"))
+					{
 						int agent_type = SQLiteView.viewRoleInt();
 						if(agent_type>99)
 						{
@@ -168,7 +165,7 @@ public class SenderThread extends Thread{
 								ClientMain.runingRequester = true;
 						}
 						else
-							System.out.println("This device doesn't runing RequesterAgent");
+							System.out.println("This device doesn't run RequesterAgent");
 
 						if(agent_type%100>9)
 						{
@@ -182,7 +179,7 @@ public class SenderThread extends Thread{
 							}
 						}						
 						else
-							System.out.println("This device doesn't runing BrokerAgent");
+							System.out.println("This device doesn't run BrokerAgent");
 
 						if(agent_type%10>0)
 						{
@@ -192,53 +189,52 @@ public class SenderThread extends Thread{
 								ClientMain.runingProvider = true;
 						}
 						else
-							System.out.println("This device doesn't runing ProviderAgent");
-						break;
+							System.out.println("This device doesn't run ProviderAgent");
+					}
 
+					//beacon Manager
+					else if(str.split(",")[1].matches("ignoreBeacon.*"))  // .* is not supported by switch-case
+						BeaconManager.ignoreBeaconManager(Integer.parseInt(str.split("@")[1]));
+					else if(str.split(",")[1].matches("notifyBeacon.*"))
+						BeaconManager.notifyBeaconManager(Integer.parseInt(str.split("@")[1]));
 
-					default :
-
-						//beacon Manager
-						if(str.split(",")[1].matches("ignoreBeacon.*"))  // .* is not supported by switch-case
-							BeaconManager.ignoreBeaconManager(Integer.parseInt(str.split("@")[1]));
-						else if(str.split(",")[1].matches("notifyBeacon.*"))
-							BeaconManager.notifyBeaconManager(Integer.parseInt(str.split("@")[1]));
-						else if(str.split(",")[1].matches("R.*"))
+					//transfer message to agent
+					else if(str.split(",")[1].matches("R.*"))
+					{
+						if(ClientMain.runingRequester == true)
 						{
-							if(ClientMain.runingRequester == true)
-							{
 							writerPrintRequester.println(str.split("@")[1]);
 							writerPrintRequester.flush();
-							}
-							else
-								System.out.println("This device doesn't runing RequesterAgent");
 						}
-						else if(str.split(",")[1].matches("B.*"))
+						else
+							System.out.println("This device doesn't run RequesterAgent");
+					}
+					else if(str.split(",")[1].matches("B.*"))
+					{
+						if(ClientMain.runingBroker == true)
 						{
-							if(ClientMain.runingBroker == true)
-							{
 							writerPrintBroker.println(str.split("@")[1]);
 							writerPrintBroker.flush();
-							}
-							else
-								System.out.println("This device doesn't runing BrokerAgent");
 						}
-						else if(str.split(",")[1].matches("P.*"))
+						else
+							System.out.println("This device doesn't run BrokerAgent");
+					}
+					else if(str.split(",")[1].matches("P.*"))
+					{
+						if(ClientMain.runingProvider == true)
 						{
-							if(ClientMain.runingProvider == true)
-							{
 							writerPrintProvider.println(str.split("@")[1]);
 							writerPrintProvider.flush();
-							}
-							else
-								System.out.println("This device doesn't runing ProviderAgent");
 						}
-							
-						//go to SQLite menu
 						else
-							_SQLiteMain.menuSQLite(str.split(str.split(",")[0]+",")[1]);
+							System.out.println("This device doesn't run ProviderAgent");
 					}
+
+					//go to SQLite menu
+					else
+						_SQLiteMain.menuSQLite(str.split(str.split(",")[0]+",")[1]);
 				}
+
 
 				//추가 KCSE 2014 논문 준비
 				/*

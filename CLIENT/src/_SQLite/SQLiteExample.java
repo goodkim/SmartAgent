@@ -11,7 +11,7 @@ public class SQLiteExample {
 	}
 
 	public static void fillDPDBByAgentType(String str){
-		SQLiteInsert.insertDPDB("2013-12-23 11:20:30", Integer.parseInt(str), Integer.toString(ClientMain.myID_Num)+"-device", Integer.toString(ClientMain.myID_Num) +"-00-00-00-00-00", "stable", "dusan''s", "stop", -77, 0, 0, 0, 10000);
+		SQLiteInsert.insertDPDB("2013-12-23 11:20:30", Integer.parseInt(str), "dusan''s", Integer.toString(ClientMain.myID_Num) +"-00-00-00-00-00", "stable", Integer.toString(ClientMain.myID_Num)+"-device", "stop", -77, 0, 0, 0, 10000);
 	}
 
 	public static void fillBDB(){
