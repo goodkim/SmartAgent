@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import _Function.FunctionClass;
+import _SQLite.SQLiteExample;
 import _SQLite.SQLiteInsert;
 import _SQLite.SQLiteView;
 import __Communication.ClientMain;
@@ -71,10 +72,18 @@ public class ProviderAgentThread extends Thread{
 					else if(str.split("#")[6].matches("reject.*")) //broker => provider so it's printed in provider side
 						System.out.println("applyForBroker_45 is rejected by agent " +  str.split("#")[1]);
 				}
-				
+
 				else if(str.matches("applyForMyBroker_45_2"))
 				{
 					SQLiteInsert.insertOwnDB();
+				}
+
+				else if(str.matches("addContent_25_3.*"))
+				{
+					if(str.split("#").length == 2)
+						SQLiteExample.fillCDB(str.split("#")[1]);
+					else
+						System.out.println("length is : " + str.split("#").length + " So, it donen't work!");
 				}
 
 				/*switch(str.split(",")[1]){

@@ -2,7 +2,6 @@ package __Communication;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,13 +10,10 @@ import java.io.PipedOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import org.omg.CORBA.portable.RemarshalException;
-
 import _AgentThread.BrokerAgentThread;
 import _AgentThread.ProviderAgentThread;
 import _AgentThread.RequesterAgentThread;
 import _BeaconMethod.BeaconManager;
-import _SQLite.SQLiteExample;
 import _SQLite.SQLiteView;
 import _SQLite._SQLiteMain;
 

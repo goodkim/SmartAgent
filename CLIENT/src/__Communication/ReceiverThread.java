@@ -1,6 +1,5 @@
 package __Communication;
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
@@ -14,7 +13,6 @@ import org.xml.sax.SAXException;
 
 import _BeaconMethod.BeaconManager;
 import _Function.SAServiceManager;
-import _SQLite.SQLiteView;
 
 public class ReceiverThread extends Thread {
 	Socket socket;
