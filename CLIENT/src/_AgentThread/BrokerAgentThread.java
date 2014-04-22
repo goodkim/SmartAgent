@@ -75,7 +75,7 @@ public class BrokerAgentThread extends Thread{
 					{
 						if(ClientMain.tempReceivedAgentInfor.split("#")[5].matches("applyForBroker_45")&&ClientMain.tempReceivedAgentInfor.split("#")[1].matches(str.split("#")[1])&&ClientMain.tempReceivedAgentInfor.split("#")[2].matches(str.split("#")[2]))
 						{
-							FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "B", str.split("#")[1], str.split("#")[2] , "applyForBroker_45",str.split("#")[3]+"@"+SQLiteView.viewDevicePropertyDB(), socket);
+							FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "B", str.split("#")[1], str.split("#")[2] , "ackApplication_54",str.split("#")[3]+"@"+SQLiteView.viewDevicePropertyDB(), socket);
 							//Register ClientMain.tempAgentInfor in RPDB SA#DEP#DEP_AGENT#DTN#DTN_AGENT#SERVICE_FIELD#ID=1@UpdateTime=2013-12-23 11:20:30@AgentType=101@UserName=dukki@OwnMACaddr=11-11-11-11-11-11@Status=stable@DeviceName=dukki's@Mobility=stop@BatteryResidual=-77@Location_Altitude=0.0@Location_Latitude=0.0@Location_Longitude=0.0@BeaconTime=1
 							SQLiteInsert.insertRPDB(GetDate.getDate(), GetAgentType.stringToInt(ClientMain.tempReceivedAgentInfor.split("#")[2]), ClientMain.tempReceivedAgentInfor.split("OwnMACaddr=")[1].split("@")[0],ClientMain.tempReceivedAgentInfor.split("Status=")[1].split("@")[0], ClientMain.tempReceivedAgentInfor.split("Mobility=")[1].split("@")[0]
 									, Integer.parseInt(ClientMain.tempReceivedAgentInfor.split("BatteryResidual=")[1].split("@")[0]), 1, 1);
@@ -85,6 +85,8 @@ public class BrokerAgentThread extends Thread{
 						else
 							System.out.println("Check your command!! differ from last received message");
 					}
+					
+					//add in this field !!!
 				}
 
 

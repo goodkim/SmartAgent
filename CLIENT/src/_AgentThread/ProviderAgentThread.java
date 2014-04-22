@@ -64,12 +64,17 @@ public class ProviderAgentThread extends Thread{
 				{
 					if(str.split("#")[6].matches("accept.*")) //broker => provider so it's printed in provider side
 					{
-						System.out.println("application accepted !");
+						System.out.println("application is accepted !");
 						//register str in BDB. whenever it can change
 						SQLiteInsert.insertBDB(GetDate.getDate(), 1, str.split("OwnMACaddr=")[1].split("@")[0], "stable", 1, Integer.parseInt(str.split("BeaconTime=")[1].split("@")[0]));
 					}
 					else if(str.split("#")[6].matches("reject.*")) //broker => provider so it's printed in provider side
 						System.out.println("applyForBroker_45 is rejected by agent " +  str.split("#")[1]);
+				}
+				
+				else if(str.matches("applyForMyBroker_45_2"))
+				{
+					SQLiteInsert.insertOwnDB();
 				}
 
 				/*switch(str.split(",")[1]){

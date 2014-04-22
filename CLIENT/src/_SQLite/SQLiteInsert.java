@@ -82,11 +82,12 @@ public class SQLiteInsert {
 		System.out.println("Records insertRPDB of "+ClientMain.myID_Num + "successfully");
 	}
 
-	public static void insertOwnRPDB()//insert mine agent into RPAgent 
+	public static void insertOwnDB()//insert mine agent information into RPDB & BDB 
 	{
 		String str = SQLiteView.viewDevicePropertyDB();
-		SQLiteInsert.insertRPDB(GetDate.getDate(), Integer.parseInt(str.split("AgentType=")[1].split("@")[0]), str.split("OwnMACaddr=")[1].split("@")[0],str.split("Status=")[1].split("@")[0], str.split("Mobility=")[1].split("@")[0]
+		SQLiteInsert.insertRPDB(GetDate.getDate(), Integer.parseInt(str.split("AgentType=")[1].split("@")[0]), "localhost",str.split("Status=")[1].split("@")[0], str.split("Mobility=")[1].split("@")[0]
 				, Integer.parseInt(str.split("BatteryResidual=")[1].split("@")[0]), 1, 1);
+		SQLiteInsert.insertBDB(GetDate.getDate(), 1, "localhost", "localhost", 1, 0);
 
 	}
 

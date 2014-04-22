@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import _Function.FunctionClass;
+import _SQLite.SQLiteExample;
 import _SQLite.SQLiteInsert;
 import _SQLite.SQLiteView;
 import __Communication.ClientMain;
@@ -54,7 +55,7 @@ public class RequesterAgentThread extends Thread{
 				{
 					if(str.split("#")[6].matches("accept.*")) //broker => provider so it's printed in provider side
 					{
-						System.out.println("application accepted !");
+						System.out.println("application is accepted !");
 						//register str in BDB. whenever it can change
 						SQLiteInsert.insertBDB(GetDate.getDate(), 1, str.split("OwnMACaddr=")[1].split("@")[0], "stable", 1, Integer.parseInt(str.split("BeaconTime=")[1].split("@")[0]));
 					}
@@ -70,6 +71,11 @@ public class RequesterAgentThread extends Thread{
 					{
 						FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "R", broker.split("@BMACaddr=")[1].split("-")[0], "B", "requestToSearch_1", str.split("#")[1], socket);
 					}					
+				}
+				
+				else if(str.matches("applyForMyBroker_45_2"))
+				{
+					SQLiteInsert.insertOwnDB();
 				}
 				
 				else if(str.matches("break"))

@@ -36,8 +36,7 @@ public class _SQLiteMain {
 		else if(str.matches("fillRPDB"))
 			SQLiteExample.fillRPDB();
 
-		else if(str.matches("fillOwnRPDB"))
-			SQLiteInsert.insertOwnRPDB();
+	
 		
 		else if(str.matches("fillDPDB@.*"))
 			SQLiteExample.fillDPDBByAgentType(str.split("@")[1]);
