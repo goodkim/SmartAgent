@@ -2,9 +2,7 @@ package _Function;
 
 import java.io.PrintWriter;
 
-import _SQLite.SQLiteInsert;
 import __Communication.ClientMain;
-import etc.GetDate;
 
 public class SAServiceManager {
 
@@ -20,28 +18,28 @@ public class SAServiceManager {
 		{
 			if(str.split("#")[5].matches("requestToSearch_1"))
 			{
-				System.out.println("SAServiceManager_requestToSearch_1 receives :"+ str);  //print SA message
+				System.out.println("SAServiceManager requestToSearch_1 receives :"+ str);  //print SA message
 				writerPrintBroker.println(str);
 				writerPrintBroker.flush();	
 			}
 
 			else if(str.split("#")[5].matches("broadcastToSearch_2"))
 			{
-				System.out.println("SAServiceManager_broadcastToSearch_2 receives :"+ str);  //print SA message
+				System.out.println("SAServiceManager broadcastToSearch_2 receives :"+ str);  //print SA message
 				writerPrintProvider.println(str);
 				writerPrintProvider.flush();
 			}
 
 			else if(str.split("#")[5].matches("applyForBroker_45"))
 			{
-				System.out.println("SAServiceManager_applyForBroekr_45 receives :"+ str);  //print SA message
+				System.out.println("SAServiceManager applyForBroekr_45 receives :"+ str);  //print SA message
 				writerPrintBroker.println(str);
 				writerPrintBroker.flush();
 			}
 
 			else if(str.split("#")[5].matches("ackApplication_54"))
 			{
-				System.out.println("SAServiceManager_ackApplication_54 receives :"+ str);  //print SA message
+				System.out.println("SAServiceManager ackApplication_54 receives :"+ str);  //print SA message
 				//AckApplication message is transferred to One of the requester or provider agent
 				if(ClientMain.runingRequester)
 				{
@@ -56,7 +54,14 @@ public class SAServiceManager {
 				else
 					System.out.println("The device doesn't have proper agent");
 			}
-
+			
+			else if(str.split("#")[5].matches("informExistenceOfContent_5"))
+			{
+				System.out.println("SAServiceManager informExistenceOfContent_5 receives :"+ str);  //print SA message
+				writerPrintBroker.println(str);
+				writerPrintBroker.flush();
+			}
+			
 		}
 
 		else

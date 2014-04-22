@@ -81,6 +81,9 @@ public class RequesterAgentThread extends Thread{
 				else if(str.matches("break"))
 					break;
 				
+				else
+					System.out.printf("The command has not been developed : " + str);
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

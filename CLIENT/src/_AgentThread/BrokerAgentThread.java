@@ -86,11 +86,19 @@ public class BrokerAgentThread extends Thread{
 							System.out.println("Check your command!! differ from last received message");
 					}
 					
+					else if(str.matches(".*informExistenceOfContent_5.*"))
+					{
+						FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "B", str.split("#")[6].split("@")[0], "R", "informExistenceOfContent_5_2", str.split("#")[1]+"@"+str.split("@")[1], socket);
+					}
+
 					//add in this field !!!
+
+					else
+						System.out.printf("The command has not been developed" + str);
 				}
 
 
-				
+
 				//manage beacon
 				if(str.matches("startBeacon"))  //startBeacon
 				{

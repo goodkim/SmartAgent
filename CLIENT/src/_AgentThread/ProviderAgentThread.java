@@ -48,11 +48,20 @@ public class ProviderAgentThread extends Thread{
 
 				else if(str.matches(".*broadcastToSearch_2.*"))
 				{
+					System.out.println("Search For Content SA start!!");
 					arrayAll= SQLiteView.viewAllContentInCDB();
-					for(String content : arrayAll)
+					int temp_i=0;
+					for(String content : arrayAll) //broadcastToSearch_4 service runs
 					{
-						//		if(str.split("@")[1]== )
+						if(str.split("@")[1].equals(content.split("@ContentName=")[1].split("@")[0])) //debugging check successes
+						{
+							System.out.println("it's works!!");
+							FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "P", str.split("#")[1], "B", "informExistenceOfContent_5", str.split("#")[6].split("@")[0]+"@1", socket);
+							temp_i++;
+						}
 					}
+					if(temp_i==0)
+						FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "P", str.split("#")[1], "B", "informExistenceOfContent_5", str.split("#")[6].split("@")[0]+"@0", socket);
 				}
 
 				else if(str.matches("applyForBroker_45.*"))
@@ -101,6 +110,9 @@ public class ProviderAgentThread extends Thread{
 
 				else if(str.matches("break"))
 					break;
+				
+				else
+					System.out.printf("The command has not been developed" + str);
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
