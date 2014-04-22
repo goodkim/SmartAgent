@@ -90,6 +90,7 @@ public class BrokerAgentThread extends Thread{
 				}
 
 
+				
 				//manage beacon
 				if(str.matches("startBeacon"))  //startBeacon
 				{

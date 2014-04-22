@@ -24,7 +24,7 @@ public class SQLiteExample {
 	}
 
 	public static void fillCDB(String str){
-		SQLiteInsert.insertCDB(GetDate.getDate(), str, 9000, 4800, "DivX", 1024, "NULL", "NULL", "localhost", 0, "having");
+		SQLiteInsert.insertCDB(GetDate.getDate(), str, 9000, 4800, "DivX", 1024, "NULL", "NULL", ClientMain.myID_Num + "-localhost", 0, "having");
 	}
 
 }
