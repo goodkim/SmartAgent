@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import _FileTransport.FileSenderThread;
 import _Function.FunctionClass;
 import _SQLite.SQLiteExample;
 import _SQLite.SQLiteInsert;
@@ -94,6 +95,19 @@ public class ProviderAgentThread extends Thread{
 					else
 						System.out.println("length is : " + str.split("#").length + " So, it donen't work!");
 				}
+				else if(str.split("#")[5].matches("checkTheThroughput_47"))
+				{
+					System.out.println(" go to home!!");
+				}
+				else if(str.matches("send.*"))
+				{
+					Socket fileSocket = null;
+					String contentName = str.split("#")[1];
+					fileSocket = new Socket("127.0.0.1",9091);
+					System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+					Thread fileSenderThread = new FileSenderThread(fileSocket, contentName);
+					fileSenderThread.start();
+				}
 
 				/*switch(str.split(",")[1]){
 				case "menu":
@@ -107,6 +121,11 @@ public class ProviderAgentThread extends Thread{
 				/*
 				writer.println(str);
 				writer.flush();*/
+				
+				else if(str.matches(".*requestToOpenAPort_47s1.*"))
+				{
+					Socket fileSocket = null;
+				}
 
 				else if(str.matches("break"))
 					break;

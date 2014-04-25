@@ -7,8 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import _FileTransport.FileSocketMain;
 import _Function.FunctionClass;
-import _SQLite.SQLiteExample;
 import _SQLite.SQLiteInsert;
 import _SQLite.SQLiteView;
 import __Communication.ClientMain;
@@ -78,11 +78,18 @@ public class RequesterAgentThread extends Thread{
 					SQLiteInsert.insertOwnDB();
 				}
 				
+				
+				else if(str.matches("checkTheThroughput_47.*"))
+				{
+					FileSocketMain.fileSocketMaker(FileSocketMain.getSocketPort(),"checkThroughput");
+					FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), SQLiteView.viewRoleString(), str.split("#")[1], "P", "checkTheThroughput_47", Integer.toString(FileSocketMain.getSocketPort()), socket);
+				}
+				
 				else if(str.matches("break"))
 					break;
 				
 				else
-					System.out.printf("The command has not been developed : " + str);
+					System.out.println("The command has not been developed : " + str);
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

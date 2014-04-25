@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class ClientMain {
 	static String myID, public_str = null;
-	public static int myID_Num;
+	public static int myID_Num ;
 	public static Socket socket = null;
 	public static String tempReceivedAgentInfor =null;
 	

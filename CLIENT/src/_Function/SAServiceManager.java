@@ -12,7 +12,7 @@ public class SAServiceManager {
 		PrintWriter writerPrintBroker = new PrintWriter(ClientMain.senderToBrokerOut);
 		PrintWriter writerPrintProvider = new PrintWriter(ClientMain.senderToProviderOut);
 
-		System.out.println("sAServiceManager is working well");
+		System.out.println("sAServiceManager recevie : " + str);
 
 		if((str.split("#")[4].matches(".*R.*")&&ClientMain.runingRequester==true)||(str.split("#")[4].matches(".*B.*")&&ClientMain.runingBroker==true)||(str.split("#")[4].matches(".*P.*")&&ClientMain.runingProvider==true))
 		{
@@ -60,6 +60,12 @@ public class SAServiceManager {
 				System.out.println("SAServiceManager informExistenceOfContent_5 receives :"+ str);  //print SA message
 				writerPrintBroker.println(str);
 				writerPrintBroker.flush();
+			}
+			
+			else if(str.split("#")[5].matches("checkTheThroughput_47"))
+			{
+				writerPrintProvider.println(str);
+				writerPrintProvider.flush();
 			}
 			
 		}
