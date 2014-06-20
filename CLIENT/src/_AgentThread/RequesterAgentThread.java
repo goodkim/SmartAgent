@@ -7,7 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import _FileTransport.FileSocketMain;
+import _FileTransport.FileServerSocketThread;
+import _FileTransport.FileTransportMain;
 import _Function.FunctionClass;
 import _SQLite.SQLiteInsert;
 import _SQLite.SQLiteView;
@@ -41,7 +42,7 @@ public class RequesterAgentThread extends Thread{
 			try {
 				
 				str=reader.readLine();
-				System.out.println("Requester agent Thread: " +str );
+				System.out.println("Requester agent Thread receives: " +str );
 				
 				if(str.matches("menu"))
 					PrintMainMenu.printRequesterAgentMenu();
@@ -78,18 +79,23 @@ public class RequesterAgentThread extends Thread{
 					SQLiteInsert.insertOwnDB();
 				}
 				
-				
 				else if(str.matches("checkTheThroughput_47.*"))
 				{
-					FileSocketMain.fileSocketMaker(FileSocketMain.getSocketPort(),"checkThroughput");
-					FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), SQLiteView.viewRoleString(), str.split("#")[1], "P", "checkTheThroughput_47", Integer.toString(FileSocketMain.getSocketPort()), socket);
+					int fileServerSocketPort=FileTransportMain.getServerSocketPort();
+					//for seamless service this code should be corrected.
+					
+					Thread fileServerThread = new FileServerSocketThread(fileServerSocketPort, str.split("#")[2]);
+					fileServerThread.start();
+					FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "R", str.split("#")[1], "P", "checkTheThroughput_47",fileServerSocketPort+ "@" +str.split("#")[2]	, socket);
+					
 				}
 				
 				else if(str.matches("break"))
 					break;
 				
 				else
-					System.out.println("The command has not been developed : " + str);
+					System.out.println("The command has not been developed (Requester Agent): " + str);
+
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

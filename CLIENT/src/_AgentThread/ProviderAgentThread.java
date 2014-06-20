@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import _FileTransport.FileSenderThread;
+import _FileTransport.FileSenderClientThread;
 import _Function.FunctionClass;
 import _SQLite.SQLiteExample;
 import _SQLite.SQLiteInsert;
@@ -42,27 +42,27 @@ public class ProviderAgentThread extends Thread{
 			try {
 
 				str=reader.readLine();
-				System.out.println("Provider agent Thread: " +str );
+				System.out.println("Provider agent Thread receives: " +str );
 
 				if(str.matches("menu"))
 					PrintMainMenu.printProviderAgentMenu();
 
 				else if(str.matches(".*broadcastToSearch_2.*"))
 				{
-					System.out.println("Search For Content SA start!!");
+					System.out.println("Start to Search For Content!!");
 					arrayAll= SQLiteView.viewAllContentInCDB();
 					int temp_i=0;
 					for(String content : arrayAll) //broadcastToSearch_4 service runs
 					{
 						if(str.split("@")[1].equals(content.split("@ContentName=")[1].split("@")[0])) //debugging check successes
 						{
-							System.out.println("it's works!!");
-							FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "P", str.split("#")[1], "B", "informExistenceOfContent_5", str.split("#")[6].split("@")[0]+"@1", socket);
+							System.out.println("This provider agent has the content!!!!");
+							FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "P", str.split("#")[1], "B", "informExistenceOfContent_5", str.split("#")[6].split("@")[0]+"@existence@"+str.split("@")[1], socket);
 							temp_i++;
 						}
 					}
 					if(temp_i==0)
-						FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "P", str.split("#")[1], "B", "informExistenceOfContent_5", str.split("#")[6].split("@")[0]+"@0", socket);
+						FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "P", str.split("#")[1], "B", "informExistenceOfContent_5", str.split("#")[6].split("@")[0]+"@nonexistence@"+str.split("@")[1], socket);
 				}
 
 				else if(str.matches("applyForBroker_45.*"))
@@ -95,17 +95,14 @@ public class ProviderAgentThread extends Thread{
 					else
 						System.out.println("length is : " + str.split("#").length + " So, it donen't work!");
 				}
+				
 				else if(str.split("#")[5].matches("checkTheThroughput_47"))
 				{
-					System.out.println(" go to home!!");
-				}
-				else if(str.matches("send.*"))
-				{
 					Socket fileSocket = null;
-					String contentName = str.split("#")[1];
-					fileSocket = new Socket("127.0.0.1",9091);
-					System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-					Thread fileSenderThread = new FileSenderThread(fileSocket, contentName);
+					String contentName = str.split("@")[1];
+					System.out.println("portNum: "+ Integer.parseInt(str.split("#")[6].split("@")[0]));
+					fileSocket = new Socket("127.0.0.1", Integer.parseInt(str.split("#")[6].split("@")[0]));
+					Thread fileSenderThread = new FileSenderClientThread(fileSocket, contentName, 47);//47 means checkTheThroughput_47
 					fileSenderThread.start();
 				}
 
@@ -122,16 +119,16 @@ public class ProviderAgentThread extends Thread{
 				writer.println(str);
 				writer.flush();*/
 				
-				else if(str.matches(".*requestToOpenAPort_47s1.*"))
+				/*else if(str.matches(".*requestToOpenAPort_47s1.*"))
 				{
 					Socket fileSocket = null;
-				}
+				}*/
 
 				else if(str.matches("break"))
 					break;
 				
 				else
-					System.out.printf("The command has not been developed" + str);
+					System.out.println("The command has not been developed (Provider Agent): " + str);
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

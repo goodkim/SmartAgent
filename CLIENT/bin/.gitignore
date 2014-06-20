@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-/__Communication
-=======
-/_AgentThread
-/_BeaconMethod
-/_Function
-/_SQLite
-/__Communication
-/etc
->>>>>>> refs/heads/Reconfig_Dusan
 /_FileTransport
+/_AgentThread
+/_Function

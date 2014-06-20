@@ -50,7 +50,7 @@ public class BrokerAgentThread extends Thread{
 				//manage broker service
 				else
 				{
-					System.out.println("Broker agent Thread: " +str );
+					System.out.println("Broker agent Thread receives: " +str );
 
 					if(str.matches("menu"))
 						PrintMainMenu.printBrokerAgentrMenu();
@@ -88,41 +88,43 @@ public class BrokerAgentThread extends Thread{
 					
 					else if(str.matches(".*informExistenceOfContent_5.*"))
 					{
-						FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "B", str.split("#")[6].split("@")[0], "R", "informExistenceOfContent_5_2", str.split("#")[1]+"@"+str.split("@")[1], socket);
+						FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "B", str.split("#")[6].split("@")[0], "R", "informExistenceOfContent_5_2", str.split("#")[1]+"@"+str.split("@")[1]+"@"+str.split("@")[2], socket);
+					}
+					
+					//manage beacon
+					else if(str.matches("startBeacon"))  //startBeacon
+					{
+						if(ClientMain.runingSendBeacon)
+							System.out.println("Beacon already has been working");
+						else if(SQLiteView.viewBeaconTime()>0)
+						{
+							ClientMain.runingSendBeacon=true;
+							Thread sendBeaconThread = new SendBeaconThread();
+							sendBeaconThread.start();
+						}
+						else 
+						{
+							System.out.println("Broker Agent needs to set up threadTime");
+							System.out.println("Broker Thread closes well!!!!!");
+						}
+					}
+					else if(str.matches("stopBeacon"))  //stopBeacon
+					{
+						if(ClientMain.runingSendBeacon)
+							ClientMain.runingSendBeacon=false;
+						else
+							System.out.println("Beacon doesn't work yet");
 					}
 
 					//add in this field !!!
 
 					else
-						System.out.printf("The command has not been developed" + str);
+						System.out.println("The command has not been developed (Broker Agent): " + str);
 				}
 
 
 
-				//manage beacon
-				if(str.matches("startBeacon"))  //startBeacon
-				{
-					if(ClientMain.runingSendBeacon)
-						System.out.println("Beacon already has been working");
-					else if(SQLiteView.viewBeaconTime()>0)
-					{
-						ClientMain.runingSendBeacon=true;
-						Thread sendBeaconThread = new SendBeaconThread();
-						sendBeaconThread.start();
-					}
-					else 
-					{
-						System.out.println("Broker Agent needs to set up threadTime");
-						System.out.println("Broker Thread closes well!!!!!");
-					}
-				}
-				else if(str.matches("stopBeacon"))  //stopBeacon
-				{
-					if(ClientMain.runingSendBeacon)
-						ClientMain.runingSendBeacon=false;
-					else
-						System.out.println("Beacon doesn't work yet");
-				}
+				
 			}catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
