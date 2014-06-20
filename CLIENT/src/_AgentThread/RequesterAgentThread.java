@@ -81,11 +81,13 @@ public class RequesterAgentThread extends Thread{
 				
 				else if(str.matches("checkTheThroughput_47.*"))
 				{
-					int fileServerSocketPort=FileTransportMain.getServerSocketPort();
+					int fileServerSocketPort= 7000+ClientMain.myID_Num;
 					//for seamless service this code should be corrected.
-					
-					Thread fileServerThread = new FileServerSocketThread(fileServerSocketPort, str.split("#")[2]);
-					fileServerThread.start();
+					if(!ClientMain.runingFileServerThread)
+					{
+						Thread fileServerThread = new FileServerSocketThread(fileServerSocketPort, str.split("#")[2]);
+						fileServerThread.start();
+					}
 					FunctionClass.sendServiceMessage(Integer.toString(ClientMain.myID_Num), "R", str.split("#")[1], "P", "checkTheThroughput_47",fileServerSocketPort+ "@" +str.split("#")[2]	, socket);
 					
 				}

@@ -21,9 +21,10 @@ public class FileServerSocketThread extends Thread{
 		try {
 			/*if(socketNum!=-1)
 			{*/
+			ServerSocket serverSocket = new ServerSocket(socketNum); //first, each device can open a socket!!
+			ClientMain.runingFileServerThread=true;
+			//serverSocket.setReuseAddress(true);
 			while(true){
-				ServerSocket serverSocket = new ServerSocket(socketNum); //first, each device can open a socket!!
-				//serverSocket.setReuseAddress(true);
 				System.out.println("file server socket has been opened !!!!! socket port NUM : "+ socketNum);
 				Socket incoming = serverSocket.accept();
 				Thread fileReceiverThread = new FileReceiverServerThread(incoming,contentName,socketNum);
@@ -37,5 +38,6 @@ public class FileServerSocketThread extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		ClientMain.runingFileServerThread=false;
 	}
 }

@@ -11,7 +11,7 @@ public class FileTransportMain {
 	public static int fileServerPortIndex[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 	public static int getServerSocketPort(){
-		for(int i=0; i<10 ; i++ )
+		/*for(int i=0; i<10 ; i++ )
 		{
 			if(fileServerPortIndex[i] == 0)
 			{
@@ -20,5 +20,7 @@ public class FileTransportMain {
 			}
 		}
 		return -1; //-1 means full of available socketPort
+*/
+	return 7000+ClientMain.myID_Num;	
 	}
 }

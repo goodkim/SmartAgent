@@ -20,7 +20,7 @@ public class ClientMain {
 	public static PipedOutputStream senderToProviderOut;
 	public static PipedInputStream senderToProviderIn;
 	
-	public static boolean runingRequester=false, runingBroker=false, runingProvider=false, runingSendBeacon=false;
+	public static boolean runingRequester=false, runingBroker=false, runingProvider=false, runingSendBeacon=false, runingFileServerThread=false;
 	
 	public static void main(String[] args){
 		try{

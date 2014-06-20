@@ -38,10 +38,6 @@ public class FileSenderClientThread extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*	while(true)
-		{
-			if(true)
-			{*/
 
 		//this thread.sleep function is made to self-simulate, so it must be deleted in using Wi-Fi 
 		try {
@@ -61,20 +57,15 @@ public class FileSenderClientThread extends Thread{
 			try {
 				fis = new FileInputStream(f);
 				bis = new BufferedInputStream(fis);
-				int len;
 				int size = 1024*100;
 				byte[] data = new byte[size];
 
 				dos.write(data, 0, bis.read(data));
 
 				dos.flush();
-				System.out.println("111");
 				dos.close();
-				System.out.println("222");
 				bis.close();
-				System.out.println("333");
 				fis.close();
-				System.out.println("444");
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -65,10 +65,15 @@ public class FileReceiverServerThread extends Thread {
 				
 				else if(str.matches("start")) //receive file
 				{
-					contentName = "test" + contentName;  //debugging
+					contentName = "test_" + contentName;  //debugging
 					
 					System.out.println("Content : " + contentName + " 's transfer has been started");
 					File f = new File(contentName);
+					while(f.length()!=0L)
+					{
+						contentName=contentName.substring(0, contentName.lastIndexOf("."))+"_copy"+contentName.substring(contentName.lastIndexOf("."));
+						f = new File(contentName);
+					}
 					fos = new FileOutputStream(f);
 					bos = new BufferedOutputStream(fos);
 					System.out.println(contentName + "file has been made");
